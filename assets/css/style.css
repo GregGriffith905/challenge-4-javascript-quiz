@@ -1,0 +1,34 @@
+.game-header{
+        margin: 35px 35px 75px 35px;
+        
+}
+
+#high-scores{
+    text-align: left;
+    color: violet;
+    display: inline;
+}
+#timer {
+    text-align: right;
+    float: right;
+    
+}
+
+.game-body{
+    margin-left: 25%;
+    
+}
+#main-text{
+    text-align: left;
+    font-size: 25px;
+    font-weight: bold;
+    
+}
+
+#sub-text{
+    text-align: left;
+}
+
+.answer-response{
+    text-align: left;
+}
