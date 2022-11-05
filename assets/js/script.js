@@ -12,6 +12,7 @@ var answerResponse = document.getElementById("answer-response");
 var gameTimeLeft = 60;  //timer will countdown from 60sec
 var nextQuestion = 0;   //index of next question to be shown
 var points = 0; //stores quiz points
+var timer;
 
 
 var quizKey = [ //object which holds the questions, list of answers and indedx of correct answer
@@ -37,6 +38,21 @@ var quizKey = [ //object which holds the questions, list of answers and indedx o
     }
 ]
 
+function showResults(){
+    clearInterval(timer); 
+    gameScreen.classList.add("hide");   //hide questions and answers
+    answerResponse.classList.add("hide");   //hide answer response 
+    resultsScreen.classList.remove("hide");   //show results screen
+
+    if (gameTimeLeft>0) resultsScreen.children[0].textContent = "All Done!";    //show "all done" if completed within time limit
+    else resultsScreen.children[0].textContent = "Out of Time!";                //show "out of time" if exceeded time limit
+    resultsScreen.children[1].textContent = "Your Final Score is " + points;    //show finally score
+    
+
+    console.log(points);
+    console.log(gameTimeLeft);
+}
+
 function checkAnswer(event){
     var choosenAnswer = event.target.textContent;
     var correctAnswer = quizKey[nextQuestion].answerList[quizKey[nextQuestion].rightAnswer]
@@ -49,48 +65,36 @@ function checkAnswer(event){
         answerResponse.textContent = "Wrong!";
     }
     answerResponse.classList.remove("hide");
-    console.log()
+    
+    nextQuestion++;
+    if (nextQuestion < quizKey.length) showNextQuestion();
+    else showResults();
 }
 
 function showNextQuestion(){
-    // console.log(quizKey[0].questionList);
-    // console.log(quizKey[0].answerList[quizKey[0].rightAnswer]);
-    // console.log(answerButtons);
-    // console.log(answerButtons[1]);
-    
-    
     question.textContent = quizKey[nextQuestion].questionList;  //load question text
     
     for (var i = 0; i < answerButtons.length; i++){ //load answer button text
         answerButtons[i].textContent = quizKey[nextQuestion].answerList[i];
     };
-
-    console.log(answerButtons);
     answerButtons[0].addEventListener("click", checkAnswer); //checks which answer is being selected
-    answerButtons[1].addEventListener("click", checkAnswer);
+    answerButtons[1].addEventListener("click", checkAnswer); 
     answerButtons[2].addEventListener("click", checkAnswer);
     answerButtons[3].addEventListener("click", checkAnswer);
-
-
 }
 
 function gameTimer(command){    //control the timer counting down and subtract 10 sec for wrong answer
     
     timer = setInterval (function (){   
-        if (gameTimeLeft < 0) gameTimeLeft = 0;         //dont let timer below 0 when 10 is subtracted    
+        if (gameTimeLeft < 0) gameTimeLeft = 0; //dont let timer below 0 when 10 is subtracted    
         timerElement.textContent = "Timer: " + gameTimeLeft; //display time remaining
         gameTimeLeft--; //decrement time remaining after displaying so timer starts at 60
-
-        if (gameTimeLeft < 0) { //stop timer and go to results screen
-            clearInterval(timer); 
-            gameScreen.classList.add("hide");   //hide questions and answers
-            answerResponse.classList.add("hide");   //hide answer response 
-            resultsScreen.classList.remove("hide");   //show results screen
-        }
+        
+        if (gameTimeLeft < 0) showResults();// if out of time, go to results screen
     }, 1000)   
 }
 
-function startQuiz() {  // Start the quiz when "start quiz" button is pressed
+function startQuiz() {  //Start the quiz when "start quiz" button is pressed
   
   startScreen.classList.add("hide");    //hide start screen
   gameScreen.classList.remove("hide");    //show question and answer choices
@@ -98,5 +102,5 @@ function startQuiz() {  // Start the quiz when "start quiz" button is pressed
   showNextQuestion();
 }
 
-// Add event listener to button
+//Add event listener to button
 startButton.addEventListener("click", startQuiz);
