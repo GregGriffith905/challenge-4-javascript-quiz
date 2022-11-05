@@ -3,7 +3,7 @@
         
 }
 
-#high-scores{
+#view-high-scores{
     text-align: left;
     color: violet;
     display: inline;
@@ -31,4 +31,25 @@
 
 .answer-response{
     text-align: left;
+}
+
+.hide{
+    display: none;
+}
+
+.game-button{
+    background-color: rgb(69, 9, 146);
+    color: grey;
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+.game-button:hover{
+    box-shadow: 2px 2px 5px rgb(138, 57, 243);
+    color: whitesmoke;
+    cursor: pointer;
 }

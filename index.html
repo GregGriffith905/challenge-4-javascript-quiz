@@ -10,14 +10,43 @@
   
   <body>
     <section class = "game-header">
-        <div id = "high-scores">View high Scores</div>
+        <div id = "view-high-scores">View high Scores</div>
         <div id = "timer">Timer</div>
     </section>  
     
     <section class = "game-body">
-        <div id = "main-text">Main Text</div>
-        <div id = "sub-text">Choices</div>
-        <div id = "answer-response">Right or Wrong</div>
+        <section id = "start-screen">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code related questions within the time limit.</p>
+            <p>Keep in mind the incorrect answer will penalize your score/time by 10 seconds.</p>
+            </p>
+            <button id = start-button class = "game-button">Start Quiz</button>
+        </section>
+
+        <section id = "game-play">
+            <div id = "question">Questions</div>
+            <div id = " answer-buttons">
+                <button class = "game-button">Answer 1</button>
+                <button class = "game-button">Answer 2</button>
+                <button class = "game-button">Answer 3</button>
+                <button class = "game-button">Answer 4</button>
+            </div>     
+            <div id = "answer-response">Right or Wrong</div>
+        </section>
+        
+        <section id = final-score>
+            <h1>All done!</h1>
+            <p>Your final score is </p>
+            <p>Enter initials</p>
+        </section>
+        
+        <section id = "high-scores">
+            <h1>High Scores</h1>
+            <p>High Scores will be saved locally and displayed in a list</p>
+            <button class="game-button">Restart Quiz</button>
+            <button class = "game-button">Clear High Scores</button>
+        </section>
+
     </section> 
         
     
