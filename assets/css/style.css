@@ -29,8 +29,13 @@
     text-align: left;
 }
 
-.answer-response{
-    text-align: left;
+#answer-response{
+    margin-top: 30px;
+    text-align: centre;
+    border-top: 2px solid rgb(56, 56, 56);
+    padding: 10px;
+    font-size: 20px;
+    color: rgb(56, 56, 56);
 }
 
 .hide{
@@ -38,6 +43,9 @@
 }
 
 .game-button{
+    width: 120px;
+    height: 40px;
+    text-align: left;
     background-color: rgb(69, 9, 146);
     color: grey;
     display: block;
@@ -53,3 +61,4 @@
     color: whitesmoke;
     cursor: pointer;
 }
+
