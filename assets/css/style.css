@@ -7,6 +7,12 @@
     text-align: left;
     color: violet;
     display: inline;
+    cursor: pointer;
+}
+
+#view-high-scores:hover{
+    font-weight: bold;
+
 }
 #timer {
     text-align: right;

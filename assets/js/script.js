@@ -9,6 +9,7 @@ var answerButtons = document.getElementById("answer-buttons").children;
 var answerResponse = document.getElementById("answer-response");
 var submitButton = document.getElementById("submit-button");
 var list = document.getElementById("list");
+var viewHighScores = document.getElementById("view-high-scores");
 
 var gameTimeLeft = 60;        //timer will countdown from 60sec
 var questionIndex = 0;        //index of next question to be shown
@@ -138,4 +139,7 @@ function startQuiz() {  //Start the quiz when "start quiz" button is pressed
 }
 
 //Add event listener to button
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", startQuiz);              //click event for start quiz button
+viewHighScores.addEventListener("click", function(){           //click event for view high scores
+    if (!startScreen.classList.contains("hide"))showScores();  //only clickable from start screen
+})
