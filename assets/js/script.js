@@ -8,6 +8,8 @@ var timerElement = document.getElementById("timer");
 var answerButtons = document.getElementById("answer-buttons").children;
 var answerResponse = document.getElementById("answer-response");
 var submitButton = document.getElementById("submit-button");
+var restartButton = document.getElementById("restart-button");
+var clearScoresButton = document.getElementById("clear-scores-button");
 var list = document.getElementById("list");
 var viewHighScores = document.getElementById("view-high-scores");
 
@@ -46,6 +48,7 @@ function showScores(){
     gameScreen.classList.add("hide");                  //hide game screen
     resultsScreen.classList.add("hide");               //hide results screen
     scoresScreen.classList.remove("hide");             //show scores screen
+    
 
     var entriesToDisplay = highScoreArray.length;
     
@@ -133,13 +136,27 @@ function gameTimer(){    //control the timer counting down and subtract 10 sec f
 
 function startQuiz() {  //Start the quiz when "start quiz" button is pressed
   startScreen.classList.add("hide");        //hide start screen
+  scoresScreen.classList.add("hide");        //hide start screen
+  resultsScreen.classList.add("hide");        //hide start screen
+
   gameScreen.classList.remove("hide");      //show gameScreen
   gameTimer();                              //call timer function
   showNextQuestion();                       //populate gameScreen
 }
 
+function restartQuiz() {
+    gameTimeLeft = 60;        //timer will countdown from 60sec
+    questionIndex = 0;        //index of next question to be shown
+    points = 0;               //stores quiz points
+    list.innerHTML = "";
+    startQuiz();
+}
+
 //Add event listener to button
 startButton.addEventListener("click", startQuiz);              //click event for start quiz button
 viewHighScores.addEventListener("click", function(){           //click event for view high scores
-    if (!startScreen.classList.contains("hide"))showScores();  //only clickable from start screen
+    if (!startScreen.classList.contains("hide"))showScores();  //high scores only clickable from start screen
 })
+restartButton.addEventListener("click", restartQuiz);              //click event for start quiz button
+//clearScoresButton.addEventListener("click", startQuiz);              //click event for start quiz button
+
