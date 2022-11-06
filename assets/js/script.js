@@ -7,15 +7,18 @@ var question = document.getElementById("question");
 var timerElement = document.getElementById("timer");
 var answerButtons = document.getElementById("answer-buttons").children;
 var answerResponse = document.getElementById("answer-response");
+var submitButton = document.getElementById("submit-button");
 
 
-var gameTimeLeft = 60;  //timer will countdown from 60sec
-var nextQuestion = 0;   //index of next question to be shown
-var points = 0; //stores quiz points
-var timer;
+var gameTimeLeft = 60;        //timer will countdown from 60sec
+var questionIndex = 0;         //index of next question to be shown
+var points = 0;               //stores quiz points
+var timer;                    //countdown  
+var getName;                  //stores name from textbox  
+var highScoreArray = JSON.parse(localStorage.getItem("highScoreArray")); //
 
 
-var quizKey = [ //object which holds the questions, list of answers and index of correct answer
+var quizKey = [ //object which holds the questions, lists of answers and index of correct answer
     {questionList: "Commonly used data types DO NOT include:",
      answerList: ["Strings","Booleans","Alerts","Numbers"],
      rightAnswer: 2
@@ -38,6 +41,16 @@ var quizKey = [ //object which holds the questions, list of answers and index of
     }
 ]
 
+function submitScores(){    //adds new score to high score list and sorts lists
+    getName = document.getElementById("get-name").value;                          //gets name from textbox
+    if (getName === "") getName = "Anon.";                                        //assign name "Anon." if name field is blank
+
+    if (highScoreArray==null) highScoreArray = [{ name: getName, score: points}]; //initial value in localStorage array
+    else highScoreArray.push({ name: getName, score: points});                    //subsequent values
+    highScoreArray.sort((a,b) => b.score - a.score);                              //sort the array after adding new value
+    localStorage.setItem("highScoreArray", JSON.stringify(highScoreArray));       //save the new array
+}
+
 function showResults(){ 
     gameScreen.classList.add("hide");   //hide questions and answers
     answerResponse.classList.add("hide");   //hide answer response 
@@ -45,40 +58,40 @@ function showResults(){
 
     if (gameTimeLeft>0) resultsScreen.children[0].textContent = "All Done!";    //show "all done" if completed within time limit
     else resultsScreen.children[0].textContent = "Out of Time!";                //show "out of time" if exceeded time limit
-    resultsScreen.children[1].textContent = "Your final score is " + points + "%";    //show finally score
-    resultsScreen.children[2].textContent = "Enter Name: " + getName;    //saving name and score to local memory
-    
-
+    resultsScreen.children[1].textContent = "Your final score is " + points + "%";    //show final score
+      
     console.log(points);
     console.log(gameTimeLeft);
+
+    submitButton.onclick = submitScores;
 }
 
 function checkAnswer(event){
-    var choosenAnswer = event.target.textContent;
-    var correctAnswer = quizKey[nextQuestion].answerList[quizKey[nextQuestion].rightAnswer]
-    if (choosenAnswer === correctAnswer){
-      points += 20;
-      answerResponse.textContent = "Right!";
+    var choosenAnswer = event.target.textContent;   //gets user selection from button click
+    var correctAnswer = quizKey[questionIndex].answerList[quizKey[questionIndex].rightAnswer] //gets correct answer from quizKey
+    if (choosenAnswer === correctAnswer){   //check if selection is correct
+      points += 20;                         //add 20 point for correct selection
+      answerResponse.textContent = "Right!";    
     }
     else {
-        gameTimeLeft -= 10;
+        gameTimeLeft -= 10;                     //subtract 10sec from timer for incorrect selection
         answerResponse.textContent = "Wrong!";
     }
     answerResponse.classList.remove("hide");
     
-    nextQuestion++;
-    if (nextQuestion < quizKey.length) showNextQuestion();
+    questionIndex++;
+    if (questionIndex < quizKey.length) showNextQuestion(); //check if there are more questions 
     else{
         clearInterval(timer);
-        showResults();
+        showResults();  //showResults is called when all questions are answered(or when time is up in another function)
     }
 }
 
 function showNextQuestion(){
-    question.textContent = quizKey[nextQuestion].questionList;  //load question text
+    question.textContent = quizKey[questionIndex].questionList;  //load question text
     
     for (var i = 0; i < answerButtons.length; i++){ //load answer button text
-        answerButtons[i].textContent = quizKey[nextQuestion].answerList[i];
+        answerButtons[i].textContent = quizKey[questionIndex].answerList[i];
     };
     answerButtons[0].addEventListener("click", checkAnswer); //checks which answer is being selected
     answerButtons[1].addEventListener("click", checkAnswer); 
@@ -86,7 +99,7 @@ function showNextQuestion(){
     answerButtons[3].addEventListener("click", checkAnswer);
 }
 
-function gameTimer(command){    //control the timer counting down and subtract 10 sec for wrong answer
+function gameTimer(){    //control the timer counting down and subtract 10 sec for wrong answer
     
     timer = setInterval (function (){   
         if (gameTimeLeft < 0) gameTimeLeft = 0; //dont let timer below 0 when 10 is subtracted    
@@ -101,6 +114,8 @@ function startQuiz() {  //Start the quiz when "start quiz" button is pressed
   startScreen.classList.add("hide");    //hide start screen
   gameScreen.classList.remove("hide");    //show question and answer choices
   gameTimer();  //call timer function
+  console.log(highScoreArray);
+  console.log(JSON.parse(localStorage.getItem("highScoreArray")));
   showNextQuestion();
 }
 
