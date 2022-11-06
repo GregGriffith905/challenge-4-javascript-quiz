@@ -1,27 +1,26 @@
-// Get references to the elements
-var startScreen = document.getElementById("start-screen");
+var startScreen = document.getElementById("start-screen");  // Get references to the elements
 var gameScreen = document.getElementById("game-screen");
 var resultsScreen = document.getElementById("results-screen");
+var scoresScreen = document.getElementById("scores-screen");
 var startButton = document.getElementById("start-button");
 var question = document.getElementById("question");
 var timerElement = document.getElementById("timer");
 var answerButtons = document.getElementById("answer-buttons").children;
 var answerResponse = document.getElementById("answer-response");
 var submitButton = document.getElementById("submit-button");
-
+var list = document.getElementById("list");
 
 var gameTimeLeft = 60;        //timer will countdown from 60sec
-var questionIndex = 0;         //index of next question to be shown
+var questionIndex = 0;        //index of next question to be shown
 var points = 0;               //stores quiz points
 var timer;                    //countdown  
 var getName;                  //stores name from textbox  
-var highScoreArray = JSON.parse(localStorage.getItem("highScoreArray")); //
-
+var highScoreArray = JSON.parse(localStorage.getItem("highScoreArray")); //gets value from localStorage
 
 var quizKey = [ //object which holds the questions, lists of answers and index of correct answer
-    {questionList: "Commonly used data types DO NOT include:",
-     answerList: ["Strings","Booleans","Alerts","Numbers"],
-     rightAnswer: 2
+    {questionList: "Commonly used data types DO NOT include:",                  //quiz question
+     answerList: ["Strings","Booleans","Alerts","Numbers"],                     //answer choices
+     rightAnswer: 2                                                             //index of correct answer in answerList
     },
     {questionList: "The condition in an if/else statement is enclosed with",
      answerList: ["Quotes","Curly Brackets","Parethesis","Square Brackets"],
@@ -41,6 +40,25 @@ var quizKey = [ //object which holds the questions, lists of answers and index o
     }
 ]
 
+function showScores(){
+    startScreen.classList.add("hide");                 //hide start screen
+    gameScreen.classList.add("hide");                  //hide game screen
+    resultsScreen.classList.add("hide");               //hide results screen
+    scoresScreen.classList.remove("hide");             //show scores screen
+
+    var entriesToDisplay = highScoreArray.length;
+    
+    console.log(entriesToDisplay);
+    if (entriesToDisplay>5) entriesToDisplay = 5;
+    for (var i = 0; i < entriesToDisplay; i++){
+        var listItems = document.createElement("li");
+        listItems.textContent = + highScoreArray[i].score + "%" + " - " + highScoreArray[i].name ;
+        list.appendChild(listItems);
+        console.log(listItems.textContent +"," + highScoreArray[i].score); 
+    }
+    
+
+}
 function submitScores(){    //adds new score to high score list and sorts lists
     getName = document.getElementById("get-name").value;                          //gets name from textbox
     if (getName === "") getName = "Anon.";                                        //assign name "Anon." if name field is blank
@@ -49,16 +67,18 @@ function submitScores(){    //adds new score to high score list and sorts lists
     else highScoreArray.push({ name: getName, score: points});                    //subsequent values
     highScoreArray.sort((a,b) => b.score - a.score);                              //sort the array after adding new value
     localStorage.setItem("highScoreArray", JSON.stringify(highScoreArray));       //save the new array
+    
+    showScores();                                                                 
 }
 
 function showResults(){ 
-    gameScreen.classList.add("hide");   //hide questions and answers
-    answerResponse.classList.add("hide");   //hide answer response 
-    resultsScreen.classList.remove("hide");   //show results screen
+    gameScreen.classList.add("hide");               //hide questions and answers
+    answerResponse.classList.add("hide");           //hide answer response 
+    resultsScreen.classList.remove("hide");         //show results screen
 
-    if (gameTimeLeft>0) resultsScreen.children[0].textContent = "All Done!";    //show "all done" if completed within time limit
-    else resultsScreen.children[0].textContent = "Out of Time!";                //show "out of time" if exceeded time limit
-    resultsScreen.children[1].textContent = "Your final score is " + points + "%";    //show final score
+    if (gameTimeLeft>0) resultsScreen.children[0].textContent = "All Done!";      //show "all done" if completed within time limit
+    else resultsScreen.children[0].textContent = "Out of Time!";                  //show "out of time" if exceeded time limit
+    resultsScreen.children[1].textContent = "Your final score is " + points + "%";//show final score
       
     console.log(points);
     console.log(gameTimeLeft);
@@ -67,33 +87,33 @@ function showResults(){
 }
 
 function checkAnswer(event){
-    var choosenAnswer = event.target.textContent;   //gets user selection from button click
+    var choosenAnswer = event.target.textContent;                                             //gets user selection from button click
     var correctAnswer = quizKey[questionIndex].answerList[quizKey[questionIndex].rightAnswer] //gets correct answer from quizKey
-    if (choosenAnswer === correctAnswer){   //check if selection is correct
-      points += 20;                         //add 20 point for correct selection
+    if (choosenAnswer === correctAnswer){                                                     //check if selection is correct
+      points += 20;                                                                           //add 20 point for correct selection
       answerResponse.textContent = "Right!";    
     }
     else {
-        gameTimeLeft -= 10;                     //subtract 10sec from timer for incorrect selection
+        gameTimeLeft -= 10;                                  //subtract 10sec from timer for incorrect selection
         answerResponse.textContent = "Wrong!";
     }
     answerResponse.classList.remove("hide");
     
     questionIndex++;
-    if (questionIndex < quizKey.length) showNextQuestion(); //check if there are more questions 
+    if (questionIndex < quizKey.length) showNextQuestion();  //check if there are more questions 
     else{
         clearInterval(timer);
-        showResults();  //showResults is called when all questions are answered(or when time is up in another function)
+        showResults();                                       //showResults is called when all questions are answered(or when time is up in another function)
     }
 }
 
 function showNextQuestion(){
-    question.textContent = quizKey[questionIndex].questionList;  //load question text
+    question.textContent = quizKey[questionIndex].questionList;               //load question text
     
-    for (var i = 0; i < answerButtons.length; i++){ //load answer button text
-        answerButtons[i].textContent = quizKey[questionIndex].answerList[i];
+    for (var i = 0; i < answerButtons.length; i++){                           //load answer button text
+        answerButtons[i].textContent = quizKey[questionIndex].answerList[i];  //loading answers from quizKey  
     };
-    answerButtons[0].addEventListener("click", checkAnswer); //checks which answer is being selected
+    answerButtons[0].addEventListener("click", checkAnswer);                  //checks which answer is being selected
     answerButtons[1].addEventListener("click", checkAnswer); 
     answerButtons[2].addEventListener("click", checkAnswer);
     answerButtons[3].addEventListener("click", checkAnswer);
@@ -102,21 +122,19 @@ function showNextQuestion(){
 function gameTimer(){    //control the timer counting down and subtract 10 sec for wrong answer
     
     timer = setInterval (function (){   
-        if (gameTimeLeft < 0) gameTimeLeft = 0; //dont let timer below 0 when 10 is subtracted    
+        if (gameTimeLeft < 0) gameTimeLeft = 0;              //dont let timer below 0 when 10 is subtracted    
         timerElement.textContent = "Timer: " + gameTimeLeft; //display time remaining
-        gameTimeLeft--; //decrement time remaining after displaying so timer starts at 60
+        gameTimeLeft--;                                      //decrement time remaining after displaying so timer starts at 60
         
-        if (gameTimeLeft < 0) showResults();// if out of time, go to results screen
+        if (gameTimeLeft < 0) showResults();                // if out of time, go to results screen
     }, 1000)   
 }
 
 function startQuiz() {  //Start the quiz when "start quiz" button is pressed
-  startScreen.classList.add("hide");    //hide start screen
-  gameScreen.classList.remove("hide");    //show question and answer choices
-  gameTimer();  //call timer function
-  console.log(highScoreArray);
-  console.log(JSON.parse(localStorage.getItem("highScoreArray")));
-  showNextQuestion();
+  startScreen.classList.add("hide");        //hide start screen
+  gameScreen.classList.remove("hide");      //show gameScreen
+  gameTimer();                              //call timer function
+  showNextQuestion();                       //populate gameScreen
 }
 
 //Add event listener to button
