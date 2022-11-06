@@ -152,11 +152,16 @@ function restartQuiz() {
     startQuiz();
 }
 
+function clearScores(){
+    highScoreArray = localStorage.removeItem("highScoreArray");
+    list.innerHTML = "";
+}
+
 //Add event listener to button
 startButton.addEventListener("click", startQuiz);              //click event for start quiz button
 viewHighScores.addEventListener("click", function(){           //click event for view high scores
     if (!startScreen.classList.contains("hide"))showScores();  //high scores only clickable from start screen
 })
 restartButton.addEventListener("click", restartQuiz);              //click event for start quiz button
-//clearScoresButton.addEventListener("click", startQuiz);              //click event for start quiz button
+clearScoresButton.addEventListener("click", clearScores);              //click event for start quiz button
 
