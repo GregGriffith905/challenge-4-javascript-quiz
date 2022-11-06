@@ -15,7 +15,7 @@ var points = 0; //stores quiz points
 var timer;
 
 
-var quizKey = [ //object which holds the questions, list of answers and indedx of correct answer
+var quizKey = [ //object which holds the questions, list of answers and index of correct answer
     {questionList: "Commonly used data types DO NOT include:",
      answerList: ["Strings","Booleans","Alerts","Numbers"],
      rightAnswer: 2
@@ -38,15 +38,15 @@ var quizKey = [ //object which holds the questions, list of answers and indedx o
     }
 ]
 
-function showResults(){
-    clearInterval(timer); 
+function showResults(){ 
     gameScreen.classList.add("hide");   //hide questions and answers
     answerResponse.classList.add("hide");   //hide answer response 
     resultsScreen.classList.remove("hide");   //show results screen
 
     if (gameTimeLeft>0) resultsScreen.children[0].textContent = "All Done!";    //show "all done" if completed within time limit
     else resultsScreen.children[0].textContent = "Out of Time!";                //show "out of time" if exceeded time limit
-    resultsScreen.children[1].textContent = "Your Final Score is " + points;    //show finally score
+    resultsScreen.children[1].textContent = "Your final score is " + points + "%";    //show finally score
+    resultsScreen.children[2].textContent = "Enter Name: " + getName;    //saving name and score to local memory
     
 
     console.log(points);
@@ -68,7 +68,10 @@ function checkAnswer(event){
     
     nextQuestion++;
     if (nextQuestion < quizKey.length) showNextQuestion();
-    else showResults();
+    else{
+        clearInterval(timer);
+        showResults();
+    }
 }
 
 function showNextQuestion(){
@@ -95,7 +98,6 @@ function gameTimer(command){    //control the timer counting down and subtract 1
 }
 
 function startQuiz() {  //Start the quiz when "start quiz" button is pressed
-  
   startScreen.classList.add("hide");    //hide start screen
   gameScreen.classList.remove("hide");    //show question and answer choices
   gameTimer();  //call timer function

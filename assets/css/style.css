@@ -65,3 +65,16 @@
 #start-button{
     width: auto;
 }
+
+.other-button{
+    display: inline;
+    width: auto;
+    height:auto;
+    padding: 3px;
+    margin: 0;
+    margin-left: 5px;
+}
+
+#get-name{
+    width: 100px;
+}
