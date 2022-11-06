@@ -43,18 +43,16 @@ var quizKey = [ //object which holds the questions, lists of answers and index o
     }
 ]
 
-function showScores(){
+function showScores(){  //display high scores screen
     startScreen.classList.add("hide");                 //hide start screen
     gameScreen.classList.add("hide");                  //hide game screen
     resultsScreen.classList.add("hide");               //hide results screen
     scoresScreen.classList.remove("hide");             //show scores screen
-    
 
-    var entriesToDisplay = highScoreArray.length;
-    
+    var entriesToDisplay = highScoreArray.length;      //get number of scores saved
     console.log(entriesToDisplay);
-    if (entriesToDisplay>5) entriesToDisplay = 5;
-    for (var i = 0; i < entriesToDisplay; i++){
+    if (entriesToDisplay>5) entriesToDisplay = 5;      //display lesser of all scores and 5 scores
+    for (var i = 0; i < entriesToDisplay; i++){        //loop to display scores     
         var listItems = document.createElement("li");
         listItems.textContent = + highScoreArray[i].score + "%" + " - " + highScoreArray[i].name ;
         list.appendChild(listItems);
@@ -75,7 +73,7 @@ function submitScores(){    //adds new score to high score list and sorts lists
     showScores();                                                                 
 }
 
-function showResults(){ 
+function showResults(){ //display results screen 
     gameScreen.classList.add("hide");               //hide questions and answers
     answerResponse.classList.add("hide");           //hide answer response 
     resultsScreen.classList.remove("hide");         //show results screen
@@ -90,7 +88,7 @@ function showResults(){
     submitButton.onclick = submitScores;
 }
 
-function checkAnswer(event){
+function checkAnswer(event){ //compares selection to correct answer
     var choosenAnswer = event.target.textContent;                                             //gets user selection from button click
     var correctAnswer = quizKey[questionIndex].answerList[quizKey[questionIndex].rightAnswer] //gets correct answer from quizKey
     if (choosenAnswer === correctAnswer){                                                     //check if selection is correct
@@ -111,7 +109,7 @@ function checkAnswer(event){
     }
 }
 
-function showNextQuestion(){
+function showNextQuestion(){    //populates question and answer screen 
     question.textContent = quizKey[questionIndex].questionList;               //load question text
     
     for (var i = 0; i < answerButtons.length; i++){                           //load answer button text
@@ -144,7 +142,7 @@ function startQuiz() {  //Start the quiz when "start quiz" button is pressed
   showNextQuestion();                       //populate gameScreen
 }
 
-function restartQuiz() {
+function restartQuiz() {  //restart quiz
     gameTimeLeft = 60;        //timer will countdown from 60sec
     questionIndex = 0;        //index of next question to be shown
     points = 0;               //stores quiz points
@@ -152,7 +150,7 @@ function restartQuiz() {
     startQuiz();
 }
 
-function clearScores(){
+function clearScores(){  //clear high scores from localStorage
     highScoreArray = localStorage.removeItem("highScoreArray");
     list.innerHTML = "";
 }
