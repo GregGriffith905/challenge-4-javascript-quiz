@@ -48,6 +48,7 @@ function showScores(){  //display high scores screen
     gameScreen.classList.add("hide");                  //hide game screen
     resultsScreen.classList.add("hide");               //hide results screen
     scoresScreen.classList.remove("hide");             //show scores screen
+    timerElement.textContent = "Timer: ";              //clear timer text
 
     var entriesToDisplay = highScoreArray.length;      //get number of scores saved
     if (entriesToDisplay>5) entriesToDisplay = 5;      //only diplay upto 5 scores
@@ -115,7 +116,8 @@ function checkAnswer(event){ //compares selection to correct answer
 function showNextQuestion(){    //populates question and answer screen 
     var answerButtons = answerButtonsElement.children;
     question.textContent = quizKey[questionIndex].questionList;               //load question text
-    
+    //question.style.fontSize = "20px";
+    //question.style.fontWeight = "bold";
     for (var i = 0; i < answerButtons.length; i++){                           //load answer button text
         answerButtons[i].textContent = quizKey[questionIndex].answerList[i];  //loading answers from quizKey  
     };

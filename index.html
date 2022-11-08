@@ -11,20 +11,19 @@
   <body>
     <section class = "game-header">
         <div id = "view-high-scores">View high Scores</div>
-        <div id = "timer">Timer</div>
+        <div id = "timer">Timer: </div>
     </section>  
-    
+    <hr>
     <section class = "game-body">
         <section id = "start-screen">
-            <h1>Coding Quiz Challenge</h1>
+            <div class = "header-text">Coding Quiz Challenge</div>
             <p>Try to answer the following code related questions within the time limit.</p>
             <p>Keep in mind the incorrect answer will penalize your score/time by 10 seconds.</p>
-            </p>
-            <button id = start-button class = "game-button">Start Quiz</button>
+            <div id = "start-div"><button id = "start-button" class = "game-button">Start Quiz</button></div>
         </section>
 
         <section id = "game-screen" class = "hide">
-            <div id = "question">Questions</div>
+            <div id = "question" class = "header-text">Questions</div>
             <div id = "answer-buttons">
                 <button class = "game-button">Answer 0</button>
                 <button class = "game-button">Answer 1</button>
@@ -35,16 +34,16 @@
         </section>
         
         <section id = "results-screen" class = "hide">
-            <h1></h1> 
+            <div class= "header-text"> </div> 
             <p></p>
-            <p>Enter name: <input type="text" id="get-name"><button id = "submit-button" class="other-button game-button">Submit</button></p>
+            <p>Enter name: <input type="text" id="get-name"><button id = "submit-button" class="small-game-button game-button">Submit</button></p>
         </section>
         
         <section id = "scores-screen" class = "hide">
-            <h1>High Scores</h1>
+            <div class = "header-text">High Scores</div>
             <ol id = "list"></ol>       
-            <button id = "restart-button" class="other-button game-button">Restart Quiz</button>
-            <button id = "clear-scores-button" class = "other-button game-button">Clear High Scores</button>
+            <button id = "restart-button" class="small-game-button game-button">Restart Quiz</button>
+            <button id = "clear-scores-button" class = "small-game-button game-button">Clear High Scores</button>
         </section>
 
     </section> 

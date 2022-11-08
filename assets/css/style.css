@@ -1,6 +1,12 @@
-.game-header{
-        margin: 35px 35px 75px 35px;
-        
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header{      
+        margin: 35px 35px 75px 35px; 
+        font-size: 20px;
+
 }
 
 #view-high-scores{
@@ -12,27 +18,44 @@
 
 #view-high-scores:hover{
     font-weight: bold;
-
 }
+
 #timer {
     text-align: right;
     float: right;
-    
+    display: block;    
 }
 
 .game-body{
+    padding: 0;
     margin-left: 25%;
-    
+    justify-content:center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
 }
-#main-text{
+
+#start-screen{
+    text-align: center;
+}
+
+#start-button{
+    width: auto;
+    justify-content: center;
+}
+
+
+
+#question{
     text-align: left;
     font-size: 25px;
     font-weight: bold;
     
 }
 
-#sub-text{
+#answer-buttons{
     text-align: left;
+    align-items: center;
 }
 
 #answer-response{
@@ -68,11 +91,7 @@
     cursor: pointer;
 }
 
-#start-button{
-    width: auto;
-}
-
-.other-button{
+.small-game-button{
     display: inline;
     width: auto;
     height:auto;
@@ -84,4 +103,16 @@
 #get-name{
     width: 100px;
 }
-
+.header-text{
+    font-size: 26px;
+    font-weight: bold;
+    text-align: left;    
+}
+#start-screen .header-text{
+    text-align: center;
+}
+#start-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
