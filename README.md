@@ -1,5 +1,9 @@
 # Module 4 Challange - Java Quiz
 
+## Goto App
+Deployed Link: https://greggriffith905.github.io/challenge4/
+Github Repository: https://github.com/GregGriffith905/challenge4
+
 ## About the app
 
 This app will test your knowledge in Javascript fundamentals.
@@ -19,7 +23,9 @@ You may clear high scores at any time by slecting "clear high scores"on the high
 Select "restart quiz" to attempt the quiz again
 
 ## Links to screenshots
-
+https://greggriffith905.github.io/challenge4/screenshots/image1.png
+https://greggriffith905.github.io/challenge4/screenshots/image2.png
+https://greggriffith905.github.io/challenge4/screenshots/image3.png
 
 ## User Story
 AS A coding boot camp student
