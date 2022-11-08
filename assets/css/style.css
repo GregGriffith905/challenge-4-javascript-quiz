@@ -3,6 +3,10 @@ body{
     flex-direction: column;
 }
 
+ul {
+    list-style-type: none;
+ }
+
 .game-header{      
         margin: 35px 35px 75px 35px; 
         font-size: 20px;
@@ -37,20 +41,12 @@ body{
 
 #start-screen{
     text-align: center;
+    margin-right: 15%;
 }
 
 #start-button{
     width: auto;
     justify-content: center;
-}
-
-
-
-#question{
-    text-align: left;
-    font-size: 25px;
-    font-weight: bold;
-    
 }
 
 #answer-buttons{
@@ -111,8 +107,55 @@ body{
 #start-screen .header-text{
     text-align: center;
 }
-#start-div {
+.centre-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
+
+@media screen and (max-width: 550px) {
+    .game-header{      
+        margin: 35px 35px 75px 35px; 
+        font-size: 16px;
+    }
+    .header-text{
+        font-size: 20px;
+        text-align: center;
+    }
+    #game-screen .header-text{
+        text-align: left;
+    }
+    .game-button{
+        width: 160px;
+        height: 25px;
+        text-align: left;
+        justify-items: center;
+        background-color: rgb(69, 9, 146);
+        color: grey;
+        display: block;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid black;
+        border-radius: 7px;
+        font-size: 12px;
+    }
+    .small-game-button{
+        display: block;
+        width: auto;  
+    }
+
+    }
+    #results-screen .header-text{
+        text-align: center;
+    }
+    #submit-button{
+        
+        display: flex;
+        justify-content: center;
+    }
+    #scores-screen{
+        text-align: center;
+    }
+    
+  }

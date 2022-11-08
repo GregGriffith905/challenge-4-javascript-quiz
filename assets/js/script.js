@@ -54,7 +54,7 @@ function showScores(){  //display high scores screen
     if (entriesToDisplay>5) entriesToDisplay = 5;      //only diplay upto 5 scores
     for (var i = 0; i < entriesToDisplay; i++){        //loop to display scores     
         var listItems = document.createElement("li");
-        listItems.textContent = + highScoreArray[i].score + "%" + " - " + highScoreArray[i].name ;
+        listItems.textContent = i+1 + ".   "+ highScoreArray[i].score + "%" + " - " + highScoreArray[i].name ;
         list.appendChild(listItems);
         console.log(listItems.textContent +"," + highScoreArray[i].score); 
     }
@@ -121,7 +121,11 @@ function showNextQuestion(){    //populates question and answer screen
     for (var i = 0; i < answerButtons.length; i++){                           //load answer button text
         answerButtons[i].textContent = quizKey[questionIndex].answerList[i];  //loading answers from quizKey  
     };
-    answerButtonsElement.onclick = checkAnswer;                               //checks which answer is being selected
+                                   
+    answerButtons[0].onclick = checkAnswer;                                   //checks which answer is being selected
+    answerButtons[1].onclick = checkAnswer;
+    answerButtons[2].onclick = checkAnswer;
+    answerButtons[3].onclick = checkAnswer;
     return;
 }
 
